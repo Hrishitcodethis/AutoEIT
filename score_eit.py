@@ -5,7 +5,7 @@ score_eit.py — Entry point for AutoEIT scoring.
 The scoring system was designed to approximate human EIT scoring using
 the Ortega (2000) meaning-based rubric by combining transcription
 preprocessing, idea unit overlap analysis, fuzzy string matching,
-and rule-based scoring logic with optional semantic similarity.
+and rule-based scoring logic with semantic similarity for borderline adjudication.
 
 Usage:
     python score_eit.py                        # run with defaults
@@ -46,7 +46,7 @@ def parse_args():
                    default=os.path.join(ROOT, "data", "output", "scoring_log.txt"),
                    help="Path for scoring log file")
     p.add_argument("--no-semantic", action="store_true",
-                   help="Disable sentence-transformer semantic similarity")
+                   help="Disable semantic similarity (TF-IDF / neural) for borderline cases")
     p.add_argument("--no-spacy", action="store_true",
                    help="Disable spaCy POS tagging (use stopword fallback)")
     p.add_argument("--quiet", "-q", action="store_true",

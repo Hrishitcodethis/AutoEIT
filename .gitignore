@@ -20,6 +20,13 @@ data/processed/
 # Model cache
 .cache/
 
+# Notebook exports (regenerate from .ipynb)
+notebooks/*.html
+notebooks/*.pdf
+
+# Jupyter
+.ipynb_checkpoints/
+
 # IDE
 .vscode/
 .idea/

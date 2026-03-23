@@ -4,9 +4,9 @@ pipeline.py — End-to-end AutoEIT scoring pipeline.
 Reads the transcription Excel file, detects columns robustly,
 preprocesses text, scores each utterance using the Ortega rubric,
 and writes results to:
-  - data/processed/preprocessed_transcriptions.csv  (cleaned text + scores)
-  - data/output/scored_results.xlsx                     (original sheet + Score column)
-  - data/output/logs.txt                                (per-sentence detail log)
+  - data/output/AutoEIT_Scored_Results.xlsx   (original sheets + Score column)
+  - data/output/preprocessed_transcriptions.csv  (cleaned text + all features)
+  - data/output/scoring_log.txt                  (per-sentence detail log)
 """
 
 from __future__ import annotations
@@ -70,7 +70,7 @@ class EITPipeline:
     output_csv   : where to write the preprocessed CSV
     log_path     : where to write the per-sentence log
     use_spacy    : whether to attempt spaCy POS tagging
-    use_semantic : whether to use sentence-transformers for borderline cases
+    use_semantic : whether to use semantic similarity for borderline cases
     verbose      : print progress to stdout
     """
 

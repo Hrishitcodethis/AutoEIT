@@ -9,8 +9,8 @@ scores (0–4) for each utterance in the sample data.
 
 The scoring system was designed to approximate human EIT scoring by combining
 transcription preprocessing, idea unit overlap analysis, fuzzy string matching,
-and rule-based scoring logic — with optional semantic similarity for borderline
-adjudication.
+and rule-based scoring logic — with semantic similarity (always active) for
+borderline adjudication.
 
 ---
 
@@ -22,8 +22,8 @@ AutoEIT/
 ├── requirements.txt
 │
 ├── data/
-│   ├── raw/                    ← Input: sample transcription Excel file
-│   └── output/                 ← Generated: scored Excel, CSV, logs
+│   ├── raw/                    ← Input Excel + committed scored output
+│   └── output/                 ← Generated at runtime (gitignored)
 │
 ├── src/
 │   ├── rubric.py               ← Rubric constants, score descriptors, synonymous rules
@@ -102,10 +102,11 @@ pip install spacy && python -m spacy download es_core_news_sm
 3. **Fuzzy string similarity** — Levenshtein-based ratio (accent-normalized)
    with synonymous normalization per rubric rules.
 
-4. **Hybrid semantic adjudication** — For borderline 2 ↔ 3 decisions,
-   a multilingual sentence-transformer (`paraphrase-multilingual-MiniLM-L12-v2`)
-   computes cosine similarity as a tie-breaker. Falls back gracefully when
-   not installed.
+4. **Semantic similarity (always active)** — For borderline 2 ↔ 3 decisions,
+   cosine similarity serves as a tie-breaker. Uses TF-IDF character n-gram
+   similarity by default (no heavy dependencies); automatically upgrades to
+   neural embeddings (`paraphrase-multilingual-MiniLM-L12-v2`) if
+   `sentence-transformers` is installed. Thresholds calibrated per backend.
 
 ---
 
@@ -128,23 +129,23 @@ approach description, sample analysis, limitations, and future work.
 
 ## Limitations
 
-- Content-word detection uses a stopword list by default (spaCy POS improves this).
-- Meaning preservation is approximated via overlap + similarity, not true
-  semantic parsing.
-- Self-correction extraction is heuristic (splits on `..` patterns).
+- Content-word detection uses a stopword list by default (spaCy POS improves this)
+- TF-IDF character n-gram similarity captures surface form but not deep semantics
+- Self-correction extraction is heuristic (splits on `..` patterns)
 
 ## Future Improvements
 
-- Fine-tune the sentence-transformer on EIT-specific transcription pairs.
-- Integrate an LLM-based meaning judge for the nuanced 2 ↔ 3 boundary.
-- Align self-correction detection with audio timestamps.
+- Fine-tune a sentence-transformer on EIT-specific transcription pairs
+- LLM-based meaning judge for nuanced grammar-changes-meaning cases
+- spaCy dependency parsing to detect structurally missing main verbs
+- Align self-correction detection with audio timestamps
 
 ---
 
 ## Dependencies
 
 ```
-pandas, openpyxl, thefuzz, python-Levenshtein     # required
-sentence-transformers                               # recommended
+pandas, openpyxl, thefuzz, python-Levenshtein, scikit-learn   # required
+sentence-transformers                                          # optional (upgrades semantic backend)
 spacy + es_core_news_sm                            # optional
 ```

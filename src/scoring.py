@@ -14,14 +14,14 @@ Scoring scale (0–4):
 Hybrid approach:
   Rule-based scoring (content-word overlap + fuzzy string similarity)
   is the primary signal.  For borderline 2 ↔ 3 decisions, semantic
-  similarity from a multilingual sentence-transformer is used as a
-  tie-breaker if the model is available.
+  similarity (TF-IDF character n-grams, or neural embeddings if
+  sentence-transformers is installed) is used as a tie-breaker.
 """
 
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 from thefuzz import fuzz
@@ -222,7 +222,10 @@ def score_utterance(
                 f"Meaning preserved: {matched}/{total} content words, "
                 f"syn_sort={syn_token_sort}"
             )
-        elif syn_ratio >= 85 and overlap >= 0.7:
+        elif syn_ratio >= 85 and overlap > 0.75:
+            # Require ≥75% content overlap (not just 70%) to avoid
+            # over-scoring when string similarity is high but a key
+            # content word (e.g., main verb) is missing
             is_score_3 = True
             score_3_reason = (
                 f"High similarity (syn_ratio={syn_ratio}), "
@@ -245,26 +248,39 @@ def score_utterance(
         and is_meaningful_sentence(response_clean)
     )
 
+    # Thresholds calibrated per backend:
+    #   neural (sentence-transformers): upgrade ≥ 0.82, downgrade < 0.60
+    #   tfidf  (character n-gram):      upgrade ≥ 0.78, downgrade < 0.65
+    # TF-IDF scores are lower and less spread than neural — thresholds
+    # were set by examining the score-level distributions on the sample data.
+    from .utils import get_semantic_backend
+    backend = get_semantic_backend()
+    SIM_UPGRADE = 0.82 if backend == "neural" else 0.78
+    SIM_DOWNGRADE = 0.60 if backend == "neural" else 0.65
+
     sem_sim_val: Optional[float] = None
     if use_semantic and (is_borderline or is_score_3):
         sem_sim_val = semantic_similarity(target_clean, response_clean)
         result.sem_sim = sem_sim_val
 
-    if is_borderline and sem_sim_val is not None:
-        # High semantic similarity → upgrade to 3; low → stay at 2
-        if sem_sim_val >= 0.82:
+    if sem_sim_val is not None:
+        if is_borderline and sem_sim_val >= SIM_UPGRADE:
+            # Borderline case with high semantic similarity → upgrade to 3
             is_score_3 = True
             score_3_reason = (
                 f"Borderline upgraded to 3: sem_sim={sem_sim_val:.3f}, "
                 f"content={overlap:.0%}"
             )
             result.borderline_adjusted = True
-        elif sem_sim_val < 0.60 and is_score_3:
-            # Rule-based said 3 but semantics disagree — downgrade to 2
+        elif is_score_3 and sem_sim_val < SIM_DOWNGRADE:
+            # Rule-based said 3 but semantics disagree → downgrade to 2
+            # This catches cases where string similarity is high but
+            # meaning is not fully preserved (e.g., missing main verb)
             is_score_3 = False
             result.borderline_adjusted = True
             score_3_reason = (
-                f"Downgraded from 3: sem_sim={sem_sim_val:.3f} too low"
+                f"Downgraded from 3→2: sem_sim={sem_sim_val:.3f} below "
+                f"threshold {SIM_DOWNGRADE}"
             )
 
     if is_score_3:

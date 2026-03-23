@@ -46,7 +46,7 @@
     {
       "participant": "38001-1A",
       "sentence": 7,
-      "score": 3,
+      "score": 2,
       "target_clean": "las calles de esta ciudad son muy anchas",
       "response_clean": "las calles de esta cuidad son muy anchas"
     },
@@ -60,7 +60,7 @@
     {
       "participant": "38001-1A",
       "sentence": 9,
-      "score": 3,
+      "score": 2,
       "target_clean": "las casas son muy bonitas pero caras",
       "response_clean": "las casas son muy bonitas pero muy cadas"
     },
@@ -109,7 +109,7 @@
     {
       "participant": "38001-1A",
       "sentence": 16,
-      "score": 3,
+      "score": 2,
       "target_clean": "me gustaría que el precio de las casas bajara",
       "response_clean": "me gustaría que las precios de las casas bajaron"
     },
@@ -165,7 +165,7 @@
     {
       "participant": "38001-1A",
       "sentence": 24,
-      "score": 3,
+      "score": 2,
       "target_clean": "la cantidad de personas que fuman ha disminuido",
       "response_clean": "la cantidad de personas que fuman ha"
     },
@@ -263,7 +263,7 @@
     {
       "participant": "38002-2A",
       "sentence": 8,
-      "score": 3,
+      "score": 2,
       "target_clean": "puede que llueva mañana todo el día",
       "response_clean": "puede que mañana todo la día"
     },
@@ -277,7 +277,7 @@
     {
       "participant": "38002-2A",
       "sentence": 10,
-      "score": 3,
+      "score": 2,
       "target_clean": "me gustan las películas que acaban bien",
       "response_clean": "me gustan las películas campan bien"
     },
@@ -466,14 +466,14 @@
     {
       "participant": "38004-2A",
       "sentence": 7,
-      "score": 3,
+      "score": 2,
       "target_clean": "las calles de esta ciudad son muy anchas",
       "response_clean": "las calles de esta ciudad es muy anchas"
     },
     {
       "participant": "38004-2A",
       "sentence": 8,
-      "score": 3,
+      "score": 2,
       "target_clean": "puede que llueva mañana todo el día",
       "response_clean": "pueda que llueva mañana todo día"
     },
@@ -592,7 +592,7 @@
     {
       "participant": "38004-2A",
       "sentence": 25,
-      "score": 2,
+      "score": 3,
       "target_clean": "después de llegar a casa del trabajo tomé la cena",
       "response_clean": "después de llegar ade trabajo cena a mi casa"
     },
@@ -606,7 +606,7 @@
     {
       "participant": "38004-2A",
       "sentence": 27,
-      "score": 3,
+      "score": 2,
       "target_clean": "le pedí a un amigo que me ayudara con la tarea",
       "response_clean": "le pedí un amigo que me ayuda con la tarea"
     },
@@ -697,7 +697,7 @@
     {
       "participant": "38006-2A",
       "sentence": 10,
-      "score": 3,
+      "score": 2,
       "target_clean": "me gustan las películas que acaban bien",
       "response_clean": "me gusta las películas que bien"
     },

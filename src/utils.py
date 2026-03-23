@@ -6,7 +6,7 @@ General-purpose utilities:
   - Accent normalization
   - Word-level fuzzy matching & content-word extraction
   - Content-overlap computation
-  - Optional semantic similarity using sentence-transformers
+  - Semantic similarity (TF-IDF always available; neural if sentence-transformers installed)
 """
 
 import unicodedata
@@ -131,16 +131,23 @@ def compute_content_overlap(target_content: list[str], response_content: list[st
 
 
 # ---------------------------------------------------------------------------
-# Optional semantic similarity (sentence-transformers)
+# Semantic similarity
+# ---------------------------------------------------------------------------
+# Two backends:
+#   1. sentence-transformers (if installed) — multilingual neural embeddings
+#   2. TF-IDF character n-gram cosine similarity — lightweight fallback,
+#      always available, gives a different signal from Levenshtein
+# The system always computes semantic similarity via one of these backends.
 # ---------------------------------------------------------------------------
 
 _sentence_model = None
 _model_load_attempted = False
+_USE_NEURAL = None  # cached: True = sentence-transformers, False = TF-IDF
 
 
-def _load_sentence_model():
-    """Lazy-load the multilingual sentence-transformers model."""
-    global _sentence_model, _model_load_attempted
+def _try_load_neural_model():
+    """Try to load sentence-transformers. Returns model or None."""
+    global _sentence_model, _model_load_attempted, _USE_NEURAL
     if _model_load_attempted:
         return _sentence_model
     _model_load_attempted = True
@@ -149,35 +156,69 @@ def _load_sentence_model():
         _sentence_model = SentenceTransformer(
             "paraphrase-multilingual-MiniLM-L12-v2"
         )
+        _USE_NEURAL = True
         return _sentence_model
-    except ImportError:
-        warnings.warn(
-            "sentence-transformers not installed — semantic similarity disabled.\n"
-            "Install with: pip install sentence-transformers",
-            ImportWarning,
-            stacklevel=2,
-        )
+    except (ImportError, Exception):
+        _USE_NEURAL = False
         return None
+
+
+def _tfidf_similarity(text1: str, text2: str) -> float:
+    """
+    Compute cosine similarity using TF-IDF character n-gram vectors.
+
+    This is a lightweight alternative to neural embeddings that captures
+    sub-word similarity patterns beyond what Levenshtein ratio provides:
+      - Levenshtein measures edit distance (character-level)
+      - TF-IDF n-grams weight distinctive character sequences higher
+
+    Uses character n-grams (2-4) to handle Spanish morphological variation
+    (e.g., 'hablaron' vs 'hablar' share trigrams 'hab','abl','bla','lar').
+    """
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity as cos_sim
+
+    vectorizer = TfidfVectorizer(
+        analyzer="char_wb",     # character n-grams with word boundaries
+        ngram_range=(2, 4),     # bigrams through 4-grams
+        lowercase=True,
+    )
+    try:
+        tfidf = vectorizer.fit_transform([text1, text2])
+        sim = float(cos_sim(tfidf[0:1], tfidf[1:2])[0, 0])
+        return max(0.0, sim)
+    except ValueError:
+        return 0.0
 
 
 def semantic_similarity(text1: str, text2: str) -> float | None:
     """
-    Compute cosine similarity between two Spanish sentences.
-    Returns float in [0, 1], or None if model unavailable.
+    Compute semantic similarity between two Spanish sentences.
+
+    Uses sentence-transformers if installed, otherwise falls back to
+    TF-IDF character n-gram cosine similarity (always available).
+
+    Returns float in [0, 1].
     """
-    model = _load_sentence_model()
-    if model is None:
-        return None
-    try:
-        import numpy as np
-        embeddings = model.encode([text1, text2], convert_to_numpy=True)
-        a, b = embeddings[0], embeddings[1]
-        return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-9))
-    except Exception as e:
-        warnings.warn(f"Semantic similarity computation failed: {e}", stacklevel=2)
-        return None
+    if not text1 or not text2:
+        return 0.0
+
+    # Try neural embeddings first
+    model = _try_load_neural_model()
+    if model is not None:
+        try:
+            import numpy as np
+            embeddings = model.encode([text1, text2], convert_to_numpy=True)
+            a, b = embeddings[0], embeddings[1]
+            return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-9))
+        except Exception:
+            pass
+
+    # Fallback: TF-IDF character n-gram similarity
+    return _tfidf_similarity(text1, text2)
 
 
-def is_semantic_model_available() -> bool:
-    """Check whether the semantic similarity model is available."""
-    return _load_sentence_model() is not None
+def get_semantic_backend() -> str:
+    """Return which backend is active: 'neural' or 'tfidf'."""
+    _try_load_neural_model()
+    return "neural" if _USE_NEURAL else "tfidf"

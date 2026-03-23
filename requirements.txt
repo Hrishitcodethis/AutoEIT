@@ -3,8 +3,9 @@ pandas==3.0.1
 openpyxl==3.1.5
 thefuzz==0.22.1
 python-Levenshtein==0.27.3
+scikit-learn==1.8.0
 
-# Semantic similarity — recommended for hybrid 2↔3 adjudication
+# Neural semantic similarity — optional, upgrades TF-IDF to neural embeddings
 # pip install sentence-transformers
 # sentence-transformers>=2.2.0
 
