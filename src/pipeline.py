@@ -5,8 +5,8 @@ Reads the transcription Excel file, detects columns robustly,
 preprocesses text, scores each utterance using the Ortega rubric,
 and writes results to:
   - data/processed/preprocessed_transcriptions.csv  (cleaned text + scores)
-  - outputs/scored_results.xlsx                     (original sheet + Score column)
-  - outputs/logs.txt                                (per-sentence detail log)
+  - data/output/scored_results.xlsx                     (original sheet + Score column)
+  - data/output/logs.txt                                (per-sentence detail log)
 """
 
 from __future__ import annotations
@@ -77,9 +77,9 @@ class EITPipeline:
     def __init__(
         self,
         input_path: str | Path,
-        output_xlsx: str | Path = "outputs/scored_results.xlsx",
+        output_xlsx: str | Path = "data/output/scored_results.xlsx",
         output_csv: str | Path = "data/processed/preprocessed_transcriptions.csv",
-        log_path: str | Path = "outputs/logs.txt",
+        log_path: str | Path = "data/output/logs.txt",
         use_spacy: bool = True,
         use_semantic: bool = True,
         verbose: bool = True,
@@ -243,9 +243,9 @@ class EITPipeline:
 
 def run_pipeline(
     input_path: str | Path,
-    output_xlsx: str | Path = "outputs/scored_results.xlsx",
+    output_xlsx: str | Path = "data/output/scored_results.xlsx",
     output_csv: str | Path = "data/processed/preprocessed_transcriptions.csv",
-    log_path: str | Path = "outputs/logs.txt",
+    log_path: str | Path = "data/output/logs.txt",
     use_spacy: bool = True,
     use_semantic: bool = True,
     verbose: bool = True,

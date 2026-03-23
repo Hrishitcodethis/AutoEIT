@@ -26,11 +26,11 @@ from typing import Optional
 
 from thefuzz import fuzz
 
+from .rubric import apply_synonymous_normalization
 from .utils import (
     normalize_accents,
     get_content_words,
     compute_content_overlap,
-    apply_synonymous_normalization,
     words_match,
     semantic_similarity,
 )

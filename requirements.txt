@@ -1,19 +1,13 @@
-# Core dependencies (required)
+# Core (required)
 pandas>=1.5.0
 openpyxl>=3.0.10
 thefuzz>=0.20.0
-python-Levenshtein>=0.21.0   # speeds up thefuzz significantly
+python-Levenshtein>=0.21.0
 
-# Semantic similarity (recommended — enables hybrid 2↔3 adjudication)
-# Install with: pip install sentence-transformers
+# Semantic similarity — recommended for hybrid 2↔3 adjudication
+# pip install sentence-transformers
 sentence-transformers>=2.2.0
 
-# POS-based content word detection (optional — improves accuracy)
-# Install with: pip install spacy && python -m spacy download es_core_news_sm
+# POS-based content word detection — optional, improves accuracy
+# pip install spacy && python -m spacy download es_core_news_sm
 spacy>=3.5.0
-
-# Notebook support (optional)
-jupyter>=1.0.0
-matplotlib>=3.7.0
-seaborn>=0.12.0
-scikit-learn>=1.2.0          # for cohen_kappa_score validation

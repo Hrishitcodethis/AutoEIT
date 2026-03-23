@@ -1,17 +1,20 @@
 """
 utils.py — Shared helpers for AutoEIT scoring.
 
-Includes:
+General-purpose utilities:
   - Robust column detection (handles spacing/capitalization variation)
   - Accent normalization
-  - Word-level fuzzy matching
+  - Word-level fuzzy matching & content-word extraction
+  - Content-overlap computation
   - Optional semantic similarity using sentence-transformers
-    (multilingual model, works for Spanish; falls back gracefully if not installed)
 """
 
 import unicodedata
 import warnings
 from thefuzz import fuzz
+
+from .rubric import SPANISH_FUNCTION_WORDS, apply_synonymous_normalization  # noqa: F401 — re-export
+
 
 # ---------------------------------------------------------------------------
 # Accent normalization
@@ -44,8 +47,7 @@ def detect_columns(df) -> tuple[str, str]:
     for key, original in lower.items():
         if "stimulus" in key or "target" in key or "prompt" in key:
             stimulus_col = original
-        if ("transcription" in key or "response" in key or "utterance" in key):
-            # Prefer "rater 1" but accept any transcription column
+        if "transcription" in key or "response" in key or "utterance" in key:
             if transcription_col is None or "rater 1" in key or "rater1" in key:
                 transcription_col = original
 
@@ -72,37 +74,15 @@ def detect_sentence_col(df) -> str | None:
 
 
 # ---------------------------------------------------------------------------
-# Word-level matching
+# Word-level matching & content-word extraction
 # ---------------------------------------------------------------------------
-
-# Spanish function words — used to identify content vs. function words
-SPANISH_FUNCTION_WORDS = {
-    # articles
-    "el", "la", "los", "las", "un", "una", "unos", "unas", "lo",
-    # prepositions
-    "a", "al", "de", "del", "en", "con", "por", "para", "sin",
-    "sobre", "entre", "hacia", "hasta", "desde", "ante",
-    # conjunctions
-    "y", "e", "o", "u", "pero", "sino", "ni", "que", "como",
-    # subject/object pronouns and clitics
-    "me", "te", "se", "le", "les", "nos", "os",
-    "yo", "tu", "el", "ella", "usted", "nosotros", "ustedes", "ellos", "ellas",
-    "mio", "mia", "mi", "mis", "su", "sus", "tus",
-    # auxiliaries / very common verbs treated as function words
-    "es", "ha", "he", "han", "hay", "fue", "ser", "muy",
-    # other function words
-    "no", "si", "ya", "mas", "tan", "todo", "toda",
-    "este", "esta", "ese", "esa", "esto", "eso",
-    "donde", "cuando", "quien", "cuya", "cuyo",
-}
-
 
 def get_content_words(text: str, nlp=None) -> list[str]:
     """
     Extract content words from text.
 
     If a spaCy model is provided (nlp), uses POS tagging (NOUN/VERB/ADJ/ADV).
-    Otherwise falls back to filtering against the SPANISH_FUNCTION_WORDS list.
+    Otherwise falls back to filtering against SPANISH_FUNCTION_WORDS.
     """
     if nlp is not None:
         doc = nlp(text)
@@ -114,12 +94,8 @@ def get_content_words(text: str, nlp=None) -> list[str]:
         ]
 
     words = text.split()
-    content = []
-    for w in words:
-        w_norm = normalize_accents(w)
-        if w_norm not in SPANISH_FUNCTION_WORDS and len(w) > 1:
-            content.append(w)
-    return content
+    return [w for w in words
+            if normalize_accents(w) not in SPANISH_FUNCTION_WORDS and len(w) > 1]
 
 
 def words_match(w1: str, w2: str, threshold: int = 85) -> bool:
@@ -155,30 +131,7 @@ def compute_content_overlap(target_content: list[str], response_content: list[st
 
 
 # ---------------------------------------------------------------------------
-# Synonymous substitution normalization (per rubric)
-# ---------------------------------------------------------------------------
-
-def apply_synonymous_normalization(target: str, response: str) -> tuple[str, str]:
-    """
-    Normalize per the rubric's explicit synonymous substitution rules:
-      - 'muy' is optional (add/omit without penalty)
-      - 'y' / 'e' / 'pero' / 'sino' are interchangeable conjunctions
-    Both strings are normalized identically so comparisons are fair.
-    """
-    def normalize(words):
-        # Drop 'muy'
-        words = [w for w in words if w != "muy"]
-        # Canonicalize conjunctions -> 'y'
-        words = ["y" if w in ("pero", "sino", "e") else w for w in words]
-        return words
-
-    t_words = normalize(target.split())
-    r_words = normalize(response.split())
-    return " ".join(t_words), " ".join(r_words)
-
-
-# ---------------------------------------------------------------------------
-# Optional semantic similarity
+# Optional semantic similarity (sentence-transformers)
 # ---------------------------------------------------------------------------
 
 _sentence_model = None
@@ -193,15 +146,13 @@ def _load_sentence_model():
     _model_load_attempted = True
     try:
         from sentence_transformers import SentenceTransformer
-        import numpy as np  # noqa: F401 — ensure it's available
-        # paraphrase-multilingual-MiniLM-L12-v2 supports Spanish natively
         _sentence_model = SentenceTransformer(
             "paraphrase-multilingual-MiniLM-L12-v2"
         )
         return _sentence_model
     except ImportError:
         warnings.warn(
-            "sentence-transformers not installed. Semantic similarity disabled.\n"
+            "sentence-transformers not installed — semantic similarity disabled.\n"
             "Install with: pip install sentence-transformers",
             ImportWarning,
             stacklevel=2,
@@ -209,13 +160,10 @@ def _load_sentence_model():
         return None
 
 
-def semantic_similarity(text1: str, text2: str) -> float:
+def semantic_similarity(text1: str, text2: str) -> float | None:
     """
-    Compute cosine similarity between two Spanish sentences using a
-    multilingual sentence-transformers model.
-
-    Returns a float in [-1, 1] (typically [0, 1] for similar sentences).
-    Returns None if the model is unavailable.
+    Compute cosine similarity between two Spanish sentences.
+    Returns float in [0, 1], or None if model unavailable.
     """
     model = _load_sentence_model()
     if model is None:
@@ -223,10 +171,8 @@ def semantic_similarity(text1: str, text2: str) -> float:
     try:
         import numpy as np
         embeddings = model.encode([text1, text2], convert_to_numpy=True)
-        # Cosine similarity
         a, b = embeddings[0], embeddings[1]
-        sim = float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-9))
-        return sim
+        return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-9))
     except Exception as e:
         warnings.warn(f"Semantic similarity computation failed: {e}", stacklevel=2)
         return None

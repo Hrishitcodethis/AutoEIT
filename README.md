@@ -1,10 +1,16 @@
-# AutoEIT — Automated EIT Scoring System
+# AutoEIT — Automated Scoring for the Spanish Elicited Imitation Task
 
-Reproducible Python pipeline that applies the **Ortega (2000) meaning-based rubric**
-to Spanish Elicited Imitation Task (EIT) transcriptions, producing sentence-level
-scores (0–4) for each learner utterance.
+**GSoC Test II: Evaluation of Transcribed Data**
 
-Developed as part of the **AutoEIT GSoC project** evaluation (Test II).
+This project implements an automated scoring system for the Spanish Elicited
+Imitation Task (EIT) using the Ortega (2000) meaning-based rubric. The system
+compares learner utterances against prompt sentences and outputs sentence-level
+scores (0–4) for each utterance in the sample data.
+
+The scoring system was designed to approximate human EIT scoring by combining
+transcription preprocessing, idea unit overlap analysis, fuzzy string matching,
+and rule-based scoring logic — with optional semantic similarity for borderline
+adjudication.
 
 ---
 
@@ -12,149 +18,120 @@ Developed as part of the **AutoEIT GSoC project** evaluation (Test II).
 
 ```
 AutoEIT/
-├── README.md
+├── score_eit.py                ← Quick entry point (python score_eit.py)
 ├── requirements.txt
-├── .gitignore
 │
 ├── data/
-│   ├── raw/                   ← place input Excel files here
-│   └── processed/             ← auto-generated CSVs written here
+│   ├── raw/                    ← Input: sample transcription Excel file
+│   └── output/                 ← Generated: scored Excel, CSV, logs
 │
 ├── src/
-│   ├── preprocessing.py       ← text cleaning per EIT protocol
-│   ├── scoring.py             ← Ortega rubric + hybrid semantic adjudication
-│   ├── utils.py               ← column detection, fuzzy matching, sem-sim
-│   └── pipeline.py            ← orchestrator (read → score → write)
+│   ├── rubric.py               ← Rubric constants, score descriptors, synonymous rules
+│   ├── preprocessing.py        ← Text cleaning per EIT protocol
+│   ├── scoring.py              ← Ortega rubric implementation + hybrid scoring
+│   ├── utils.py                ← Column detection, fuzzy matching, semantic similarity
+│   └── pipeline.py             ← End-to-end orchestrator
 │
 ├── scripts/
-│   ├── run_scoring.py         ← main CLI entry point
-│   └── debug_single_example.py ← interactive single-pair debugger
-│
-├── outputs/                   ← scored Excel + log written here
+│   └── run_scoring.py          ← CLI with flags (--no-semantic, --no-spacy, etc.)
 │
 └── evaluation/
-    ├── evaluation_notes.md    ← approach, limitations, validation protocol
-    └── sample_analysis.md     ← spot-check analysis of sample data
+    └── methodology.md          ← Full approach, evaluation, limitations, future work
 ```
 
 ---
 
-## Quickstart
-
-### 1. Install dependencies
+## How to Run
 
 ```bash
+# Install dependencies
 pip install -r requirements.txt
 
-# Optional: research-grade POS tagging
-python -m spacy download es_core_news_sm
+# Run scoring (simplest)
+python score_eit.py
+
+# Or with CLI options
+python scripts/run_scoring.py --no-semantic --no-spacy
+
+# Optional: enable POS-based content word detection
+pip install spacy && python -m spacy download es_core_news_sm
 ```
 
-### 2. Run the full pipeline
+### Output
 
-```bash
-python scripts/run_scoring.py
-```
-
-This reads `data/raw/AutoEIT Sample Transcriptions for Scoring.xlsx`
-and writes:
-
-| Output | Description |
-|--------|-------------|
-| `outputs/scored_results.xlsx` | Original sheets + `Score` column added |
-| `data/processed/preprocessed_transcriptions.csv` | Cleaned text, overlap, sem_sim, explanation |
-| `outputs/logs.txt` | Per-sentence detail log |
-
-### 3. Debug a specific example
-
-```bash
-python scripts/debug_single_example.py \
-  --target   "Las calles de esta ciudad son muy anchas" \
-  --response "Las calles de esta cuidad son anchas"
-```
-
-Or run interactively (no arguments) to enter pairs one at a time.
+| File | Description |
+|------|-------------|
+| `data/output/AutoEIT_Scored_Results.xlsx` | Original sheets with `Score` column added |
+| `data/output/preprocessed_transcriptions.csv` | Cleaned text, overlap metrics, explanations |
+| `data/output/scoring_log.txt` | Per-sentence scoring detail log |
 
 ---
 
-## CLI Options
+## Scoring Method
 
-```
-python scripts/run_scoring.py [options]
-
-  --input   PATH   Input Excel file  (default: data/raw/...)
-  --output  PATH   Output Excel file (default: outputs/scored_results.xlsx)
-  --csv     PATH   Output CSV        (default: data/processed/...)
-  --log     PATH   Log file          (default: outputs/logs.txt)
-  --no-semantic    Disable sentence-transformer (use rule-based only)
-  --no-spacy       Disable spaCy POS tagging (use stopword fallback)
-  --quiet          Suppress stdout output
-```
-
----
-
-## Scoring Rubric (Ortega, 2000)
+### Ortega (2000) Rubric
 
 | Score | Criteria |
 |-------|----------|
 | **4** | Exact repetition — form and meaning match stimulus exactly |
-| **3** | Full meaning preserved; grammar errors OK if meaning unchanged; 'muy' optional; y/pero interchangeable |
-| **2** | >50% idea units present; meaningful but inexact, incomplete, or ambiguous; *when in doubt 2 vs 3 → score 2* |
-| **1** | ~50% idea units; lots missing; meaning may be unrelated; OR not a self-standing sentence |
+| **3** | Meaning preserved; grammar errors OK if meaning unchanged; `muy` optional; `y`/`pero` interchangeable |
+| **2** | >50% idea units present; meaningful but inexact/incomplete; *when in doubt → score 2* |
+| **1** | ~50% idea units; much information missing; or not a self-standing sentence |
 | **0** | Silence, garbled, or only 1–2 content words matched |
 
----
+### Implementation
 
-## Technical Design
+1. **Preprocessing** — Follows the MFS/CogSLA Lab protocol: removes `[gibberish]`,
+   `[pause]`, `xxx`, false starts, stuttering; extracts best final response from
+   self-corrections.
 
-### Preprocessing (`src/preprocessing.py`)
-Follows the MFS/CogSLA Lab UIC protocol exactly:
-- Removes `[gibberish]`, `[pause]`, `xxx`/`XX` markers
-- Extracts **best final response** from self-corrections (`"Mis gus..Me gustas"`)
-- Removes false starts (`[la-]`), stuttering (`co-co-comerme`), abandoned fragments (`ma-`)
-- Strips fillers (`um`, `uh`, `mhh`), punctuation, and normalizes whitespace
+2. **Content-word overlap** — Extracts content words (nouns, verbs, adjectives,
+   adverbs) via spaCy POS tagging or stopword filtering. Computes fuzzy-matched
+   overlap ratio against the target sentence.
 
-### Column Detection (`src/utils.py`)
-Automatically detects stimulus and transcription columns regardless of
-exact capitalization or whitespace variation — no hardcoded column names.
+3. **Fuzzy string similarity** — Levenshtein-based ratio (accent-normalized)
+   with synonymous normalization per rubric rules.
 
-### Scoring (`src/scoring.py`)
-
-**Rule-based (primary):**
-- Content-word overlap (fraction of stimulus content words in response)
-- Fuzzy string similarity via Levenshtein ratio (tolerates typos/accent omissions)
-- Synonymous normalization before comparison ('muy' optional, y/pero canonical)
-
-**Hybrid semantic adjudication (for borderline 2 ↔ 3):**
-Uses `paraphrase-multilingual-MiniLM-L12-v2` (sentence-transformers, supports Spanish):
-- cosine sim ≥ 0.82 → upgrade to score 3 (meaning well-preserved)
-- cosine sim < 0.60 → keep at score 2 (meaning has diverged)
-
-This correctly handles paraphrased responses that word-overlap alone would
-under-score, without needing a full semantic parser.
-
-> The system falls back gracefully if `sentence-transformers` is not installed.
+4. **Hybrid semantic adjudication** — For borderline 2 ↔ 3 decisions,
+   a multilingual sentence-transformer (`paraphrase-multilingual-MiniLM-L12-v2`)
+   computes cosine similarity as a tie-breaker. Falls back gracefully when
+   not installed.
 
 ---
 
-## Evaluation
+## Evaluation Approach
 
-See [evaluation/evaluation_notes.md](evaluation/evaluation_notes.md) for:
-- Full approach description
-- Validation protocol (weighted Cohen's kappa)
-- Known limitations and improvement roadmap
+- **Console + log output** for every sentence shows target, response, assigned
+  score, and reasoning — enabling manual spot-checking against rubric examples.
+- **Preprocessed CSV** with all intermediate features (content overlap, fuzzy
+  ratio, semantic similarity) for systematic analysis.
+- **Recommended validation**: Compute weighted Cohen's kappa between automated
+  and human-rated scores.
 
-See [evaluation/sample_analysis.md](evaluation/sample_analysis.md) for:
-- Score distributions across the 4 sample participants
-- Spot-checked examples at each score level
-- Analysis of borderline cases
+See [evaluation/methodology.md](evaluation/methodology.md) for the full
+approach description, sample analysis, limitations, and future work.
 
 ---
 
-## Extending the System
+## Limitations
 
-- **Better content words**: spaCy POS tagging (`--no-spacy` disables)
-- **Better semantic signal**: swap the sentence-transformer model for a
-  fine-tuned Spanish model or GPT-based meaning judge
-- **More synonyms**: expand `SYNONYMOUS_SUBS` in `utils.py`
-- **New rubrics**: subclass `EITPipeline` and override `_score_sheet`
+- Content-word detection uses a stopword list by default (spaCy POS improves this).
+- Meaning preservation is approximated via overlap + similarity, not true
+  semantic parsing.
+- Self-correction extraction is heuristic (splits on `..` patterns).
+
+## Future Improvements
+
+- Fine-tune the sentence-transformer on EIT-specific transcription pairs.
+- Integrate an LLM-based meaning judge for the nuanced 2 ↔ 3 boundary.
+- Align self-correction detection with audio timestamps.
+
+---
+
+## Dependencies
+
+```
+pandas, openpyxl, thefuzz, python-Levenshtein     # required
+sentence-transformers                               # recommended
+spacy + es_core_news_sm                            # optional
+```
