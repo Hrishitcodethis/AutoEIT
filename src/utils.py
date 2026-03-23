@@ -13,7 +13,7 @@ import unicodedata
 import warnings
 from thefuzz import fuzz
 
-from .rubric import SPANISH_FUNCTION_WORDS, apply_synonymous_normalization  # noqa: F401 — re-export
+from .rubric import SPANISH_FUNCTION_WORDS, apply_synonymous_normalization
 
 
 # ---------------------------------------------------------------------------
