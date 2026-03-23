@@ -1,13 +1,13 @@
-# Core (required)
-pandas>=1.5.0
-openpyxl>=3.0.10
-thefuzz>=0.20.0
-python-Levenshtein>=0.21.0
+# Core (required) — pinned for reproducibility
+pandas==3.0.1
+openpyxl==3.1.5
+thefuzz==0.22.1
+python-Levenshtein==0.27.3
 
 # Semantic similarity — recommended for hybrid 2↔3 adjudication
 # pip install sentence-transformers
-sentence-transformers>=2.2.0
+# sentence-transformers>=2.2.0
 
 # POS-based content word detection — optional, improves accuracy
 # pip install spacy && python -m spacy download es_core_news_sm
-spacy>=3.5.0
+# spacy>=3.5.0

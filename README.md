@@ -36,22 +36,30 @@ AutoEIT/
 │   └── run_scoring.py          ← CLI with flags (--no-semantic, --no-spacy, etc.)
 │
 └── evaluation/
-    └── methodology.md          ← Full approach, evaluation, limitations, future work
+    ├── methodology.md          ← Full approach, evaluation, limitations, future work
+    └── expected_scores.json    ← Gold-standard expected output for --verify
 ```
 
 ---
 
 ## How to Run
 
+Requires **Python 3.10+**.
+
 ```bash
-# Install dependencies
+# Install dependencies (pinned versions for reproducibility)
 pip install -r requirements.txt
 
 # Run scoring (simplest)
 python score_eit.py
 
 # Or with CLI options
-python scripts/run_scoring.py --no-semantic --no-spacy
+python score_eit.py --no-semantic --no-spacy
+python score_eit.py --quiet          # suppress stdout, write to log only
+python score_eit.py --help           # see all options
+
+# Verify output matches expected scores (reproducibility check)
+python score_eit.py --no-semantic --no-spacy --quiet --verify
 
 # Optional: enable POS-based content word detection
 pip install spacy && python -m spacy download es_core_news_sm
@@ -64,6 +72,8 @@ pip install spacy && python -m spacy download es_core_news_sm
 | `data/output/AutoEIT_Scored_Results.xlsx` | Original sheets with `Score` column added |
 | `data/output/preprocessed_transcriptions.csv` | Cleaned text, overlap metrics, explanations |
 | `data/output/scoring_log.txt` | Per-sentence scoring detail log |
+
+> `data/output/` is git-ignored (generated artifacts). Run the script to reproduce.
 
 ---
 
@@ -105,6 +115,9 @@ pip install spacy && python -m spacy download es_core_news_sm
   score, and reasoning — enabling manual spot-checking against rubric examples.
 - **Preprocessed CSV** with all intermediate features (content overlap, fuzzy
   ratio, semantic similarity) for systematic analysis.
+- **Reproducibility verification**: `evaluation/expected_scores.json` contains
+  the expected scores for all 120 utterances. Run `python score_eit.py --verify`
+  to confirm output matches.
 - **Recommended validation**: Compute weighted Cohen's kappa between automated
   and human-rated scores.
 

@@ -1,0 +1,845 @@
+{
+  "total_utterances": 120,
+  "scores": [
+    {
+      "participant": "38001-1A",
+      "sentence": 1,
+      "score": 4,
+      "target_clean": "quiero cortarme el pelo",
+      "response_clean": "quiero cortarme el pelo"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 2,
+      "score": 4,
+      "target_clean": "el libro está en la mesa",
+      "response_clean": "el libro está en la mesa"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 3,
+      "score": 4,
+      "target_clean": "el carro lo tiene pedro",
+      "response_clean": "el carro lo tiene pedro"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 4,
+      "score": 4,
+      "target_clean": "el se ducha cada mañana",
+      "response_clean": "el se ducha cada mañana"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 5,
+      "score": 2,
+      "target_clean": "¿qué dice usted que va a hacer hoy?",
+      "response_clean": "que dices ustedes se que van a hacer hoy"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 6,
+      "score": 3,
+      "target_clean": "dudo que sepa manejar muy bien",
+      "response_clean": "dudo que sepa manajar bien"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 7,
+      "score": 3,
+      "target_clean": "las calles de esta ciudad son muy anchas",
+      "response_clean": "las calles de esta cuidad son muy anchas"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 8,
+      "score": 3,
+      "target_clean": "puede que llueva mañana todo el día",
+      "response_clean": "puede que lleva mañana todo el día"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 9,
+      "score": 3,
+      "target_clean": "las casas son muy bonitas pero caras",
+      "response_clean": "las casas son muy bonitas pero muy cadas"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 10,
+      "score": 4,
+      "target_clean": "me gustan las películas que acaban bien",
+      "response_clean": "me gustan las peliculas que acaban bien"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 11,
+      "score": 2,
+      "target_clean": "el chico con el que yo salgo es español",
+      "response_clean": "el chico con yo salgo"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 12,
+      "score": 4,
+      "target_clean": "después de cenar me fui a dormir tranquilo",
+      "response_clean": "despues de cenar me fui a dormir tranquilo"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 13,
+      "score": 3,
+      "target_clean": "quiero una casa en la que vivan mis animales",
+      "response_clean": "quiero una casa que vivan los animales"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 14,
+      "score": 3,
+      "target_clean": "a nosotros nos fascinan las fiestas grandiosas",
+      "response_clean": "nos fascina los fiestas grandiosos"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 15,
+      "score": 4,
+      "target_clean": "ella sólo bebe cerveza y no come nada",
+      "response_clean": "ella solo bebe cerveza y no come nada"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 16,
+      "score": 3,
+      "target_clean": "me gustaría que el precio de las casas bajara",
+      "response_clean": "me gustaría que las precios de las casas bajaron"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 17,
+      "score": 2,
+      "target_clean": "cruza a la derecha y después sigue todo recto",
+      "response_clean": "cruza a la derecha y sigue a la izquierda"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 18,
+      "score": 2,
+      "target_clean": "ella ha terminado de pintar su apartamento",
+      "response_clean": "ella ha terminado pintando su apartamento"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 19,
+      "score": 0,
+      "target_clean": "me gustaría que empezara a hacer más calor pronto",
+      "response_clean": "me gustaría se"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 20,
+      "score": 3,
+      "target_clean": "el niño al que se le murió el gato está triste",
+      "response_clean": "el niño que se murió su gato es triste"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 21,
+      "score": 3,
+      "target_clean": "una amiga mía cuida a los niños de mi vecino",
+      "response_clean": "una amiga de mio cuida su niños de vecino"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 22,
+      "score": 3,
+      "target_clean": "el gato que era negro fue perseguido por el perro",
+      "response_clean": "el gato que era negro era perseguido de perro"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 23,
+      "score": 3,
+      "target_clean": "antes de poder salir él tiene que limpiar su cuarto",
+      "response_clean": "antes de salir el tiene que limpiar su cuarto"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 24,
+      "score": 3,
+      "target_clean": "la cantidad de personas que fuman ha disminuido",
+      "response_clean": "la cantidad de personas que fuman ha"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 25,
+      "score": 2,
+      "target_clean": "después de llegar a casa del trabajo tomé la cena",
+      "response_clean": "despues de llegar a casa del trabajo se"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 26,
+      "score": 3,
+      "target_clean": "el ladrón al que atrapó la policía era famoso",
+      "response_clean": "el ladrón que atrapó la policia era famoso"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 27,
+      "score": 4,
+      "target_clean": "le pedí a un amigo que me ayudara con la tarea",
+      "response_clean": "le pedí a un amigo que me ayudara con la tarea"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 28,
+      "score": 2,
+      "target_clean": "el examen no fue tan difícil como me habían dicho",
+      "response_clean": "el examen no fue tan dificil como me decían"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 29,
+      "score": 3,
+      "target_clean": "¿serías tan amable de darme el libro que está en la mesa?",
+      "response_clean": "serías tan amable pa darme el libro que está en la mesa"
+    },
+    {
+      "participant": "38001-1A",
+      "sentence": 30,
+      "score": 3,
+      "target_clean": "hay mucha gente que no toma nada para el desayuno",
+      "response_clean": "hay mucha genta que no toma nada para el desayuno"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 1,
+      "score": 4,
+      "target_clean": "quiero cortarme el pelo",
+      "response_clean": "quiero cortarme el pelo"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 2,
+      "score": 4,
+      "target_clean": "el libro está en la mesa",
+      "response_clean": "el libro está en la mesa"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 3,
+      "score": 2,
+      "target_clean": "el carro lo tiene pedro",
+      "response_clean": "el carro tiene pelo"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 4,
+      "score": 4,
+      "target_clean": "el se ducha cada mañana",
+      "response_clean": "él se ducha cada mañana"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 5,
+      "score": 1,
+      "target_clean": "¿qué dice usted que va a hacer hoy?",
+      "response_clean": "en que ustedes hacer hoy"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 6,
+      "score": 1,
+      "target_clean": "dudo que sepa manejar muy bien",
+      "response_clean": "dudotu no sepiar exx muy bien"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 7,
+      "score": 1,
+      "target_clean": "las calles de esta ciudad son muy anchas",
+      "response_clean": "la calles estén muy anchas"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 8,
+      "score": 3,
+      "target_clean": "puede que llueva mañana todo el día",
+      "response_clean": "puede que mañana todo la día"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 9,
+      "score": 2,
+      "target_clean": "las casas son muy bonitas pero caras",
+      "response_clean": "las casas muy bonitos pero casas"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 10,
+      "score": 3,
+      "target_clean": "me gustan las películas que acaban bien",
+      "response_clean": "me gustan las películas campan bien"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 11,
+      "score": 2,
+      "target_clean": "el chico con el que yo salgo es español",
+      "response_clean": "el chico con español"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 12,
+      "score": 1,
+      "target_clean": "después de cenar me fui a dormir tranquilo",
+      "response_clean": "después de finar él dormir"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 13,
+      "score": 1,
+      "target_clean": "quiero una casa en la que vivan mis animales",
+      "response_clean": "quiere una casa con animales"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 14,
+      "score": 2,
+      "target_clean": "a nosotros nos fascinan las fiestas grandiosas",
+      "response_clean": "a nosotros fiestas grandinosas"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 15,
+      "score": 0,
+      "target_clean": "ella sólo bebe cerveza y no come nada",
+      "response_clean": "ella no beber querer"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 16,
+      "score": 0,
+      "target_clean": "me gustaría que el precio de las casas bajara",
+      "response_clean": "me gusta el casa"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 17,
+      "score": 0,
+      "target_clean": "cruza a la derecha y después sigue todo recto",
+      "response_clean": "en quises a la derecha"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 18,
+      "score": 2,
+      "target_clean": "ella ha terminado de pintar su apartamento",
+      "response_clean": "ella tiene termino apartamento"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 19,
+      "score": 1,
+      "target_clean": "me gustaría que empezara a hacer más calor pronto",
+      "response_clean": "me gusta que dcrxxx calor pranto"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 20,
+      "score": 3,
+      "target_clean": "el niño al que se le murió el gato está triste",
+      "response_clean": "el niño se murió el gato y triste"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 21,
+      "score": 1,
+      "target_clean": "una amiga mía cuida a los niños de mi vecino",
+      "response_clean": "una amigo que niña ha cuidado"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 22,
+      "score": 2,
+      "target_clean": "el gato que era negro fue perseguido por el perro",
+      "response_clean": "el gato negro se fuera el perro son"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 23,
+      "score": 1,
+      "target_clean": "antes de poder salir él tiene que limpiar su cuarto",
+      "response_clean": "antes de salir limpio"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 24,
+      "score": 1,
+      "target_clean": "la cantidad de personas que fuman ha disminuido",
+      "response_clean": "la cantidad de las personas fumar"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 25,
+      "score": 2,
+      "target_clean": "después de llegar a casa del trabajo tomé la cena",
+      "response_clean": "después de llegar la casa pone cena"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 26,
+      "score": 1,
+      "target_clean": "el ladrón al que atrapó la policía era famoso",
+      "response_clean": "el la policía es famoso"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 27,
+      "score": 2,
+      "target_clean": "le pedí a un amigo que me ayudara con la tarea",
+      "response_clean": "le pedí un amigo con ayuda con mí tarea"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 28,
+      "score": 1,
+      "target_clean": "el examen no fue tan difícil como me habían dicho",
+      "response_clean": "el examen no es difícil cuando me"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 29,
+      "score": 1,
+      "target_clean": "¿serías tan amable de darme el libro que está en la mesa?",
+      "response_clean": "el libro están en la mesa"
+    },
+    {
+      "participant": "38002-2A",
+      "sentence": 30,
+      "score": 1,
+      "target_clean": "hay mucha gente que no toma nada para el desayuno",
+      "response_clean": "hay mucho gente no quiere desayuno"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 1,
+      "score": 4,
+      "target_clean": "quiero cortarme el pelo",
+      "response_clean": "quiero cortarme el pelo"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 2,
+      "score": 4,
+      "target_clean": "el libro está en la mesa",
+      "response_clean": "el libro está en la mesa"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 3,
+      "score": 3,
+      "target_clean": "el carro lo tiene pedro",
+      "response_clean": "el carro tiene pedro"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 4,
+      "score": 4,
+      "target_clean": "el se ducha cada mañana",
+      "response_clean": "el se ducha cada mañana"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 5,
+      "score": 2,
+      "target_clean": "¿qué dice usted que va a hacer hoy?",
+      "response_clean": "qué dices usted vas hacer hoy"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 6,
+      "score": 4,
+      "target_clean": "dudo que sepa manejar muy bien",
+      "response_clean": "dudo que sepa manejar muy bien"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 7,
+      "score": 3,
+      "target_clean": "las calles de esta ciudad son muy anchas",
+      "response_clean": "las calles de esta ciudad es muy anchas"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 8,
+      "score": 3,
+      "target_clean": "puede que llueva mañana todo el día",
+      "response_clean": "pueda que llueva mañana todo día"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 9,
+      "score": 3,
+      "target_clean": "las casas son muy bonitas pero caras",
+      "response_clean": "las casas son muy bonitas para caras"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 10,
+      "score": 2,
+      "target_clean": "me gustan las películas que acaban bien",
+      "response_clean": "me gustas las películas que cada bien"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 11,
+      "score": 2,
+      "target_clean": "el chico con el que yo salgo es español",
+      "response_clean": "el chico con esolago es español"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 12,
+      "score": 3,
+      "target_clean": "después de cenar me fui a dormir tranquilo",
+      "response_clean": "después de cenar fui a dormir tranquilo"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 13,
+      "score": 2,
+      "target_clean": "quiero una casa en la que vivan mis animales",
+      "response_clean": "quiere una casa en queda mis animales mis animales quedan"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 14,
+      "score": 0,
+      "target_clean": "a nosotros nos fascinan las fiestas grandiosas",
+      "response_clean": "a nosotros fascinmas festivales"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 15,
+      "score": 2,
+      "target_clean": "ella sólo bebe cerveza y no come nada",
+      "response_clean": "ella sólo cerveza y como nada"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 16,
+      "score": 3,
+      "target_clean": "me gustaría que el precio de las casas bajara",
+      "response_clean": "me gustaría que los precios de la casa bajara"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 17,
+      "score": 0,
+      "target_clean": "cruza a la derecha y después sigue todo recto",
+      "response_clean": "y sique a la directo"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 18,
+      "score": 2,
+      "target_clean": "ella ha terminado de pintar su apartamento",
+      "response_clean": "ella se terminar pintar su apartamento"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 19,
+      "score": 1,
+      "target_clean": "me gustaría que empezara a hacer más calor pronto",
+      "response_clean": "me gustaría hacer"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 20,
+      "score": 3,
+      "target_clean": "el niño al que se le murió el gato está triste",
+      "response_clean": "el niño que se murió su gato es triste"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 21,
+      "score": 2,
+      "target_clean": "una amiga mía cuida a los niños de mi vecino",
+      "response_clean": "una amiga mía cuidado a los vecinos"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 22,
+      "score": 1,
+      "target_clean": "el gato que era negro fue perseguido por el perro",
+      "response_clean": "el gato que es negro"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 23,
+      "score": 2,
+      "target_clean": "antes de poder salir él tiene que limpiar su cuarto",
+      "response_clean": "antes de salir tienes cucuarto"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 24,
+      "score": 2,
+      "target_clean": "la cantidad de personas que fuman ha disminuido",
+      "response_clean": "la cantidad de personas que fuhan fumado se distruy"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 25,
+      "score": 2,
+      "target_clean": "después de llegar a casa del trabajo tomé la cena",
+      "response_clean": "después de llegar ade trabajo cena a mi casa"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 26,
+      "score": 2,
+      "target_clean": "el ladrón al que atrapó la policía era famoso",
+      "response_clean": "la ladrón que atropó la policía es famoso"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 27,
+      "score": 3,
+      "target_clean": "le pedí a un amigo que me ayudara con la tarea",
+      "response_clean": "le pedí un amigo que me ayuda con la tarea"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 28,
+      "score": 0,
+      "target_clean": "el examen no fue tan difícil como me habían dicho",
+      "response_clean": "fue a tan difícil"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 29,
+      "score": 1,
+      "target_clean": "¿serías tan amable de darme el libro que está en la mesa?",
+      "response_clean": "sales de donde está mi libro en está mesa"
+    },
+    {
+      "participant": "38004-2A",
+      "sentence": 30,
+      "score": 3,
+      "target_clean": "hay mucha gente que no toma nada para el desayuno",
+      "response_clean": "hay mucha gente que no toma tiempo para desayuno"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 1,
+      "score": 3,
+      "target_clean": "quiero cortarme el pelo",
+      "response_clean": "quiero cortarme mi pelo"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 2,
+      "score": 4,
+      "target_clean": "el libro está en la mesa",
+      "response_clean": "el libro está en la mesa"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 3,
+      "score": 0,
+      "target_clean": "el carro lo tiene pedro",
+      "response_clean": "perro"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 4,
+      "score": 2,
+      "target_clean": "el se ducha cada mañana",
+      "response_clean": "el se lucha cada mañana"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 5,
+      "score": 0,
+      "target_clean": "¿qué dice usted que va a hacer hoy?",
+      "response_clean": "qué que vas estoy"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 6,
+      "score": 2,
+      "target_clean": "dudo que sepa manejar muy bien",
+      "response_clean": "dudo que sepa mamastar tan bien"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 7,
+      "score": 0,
+      "target_clean": "las calles de esta ciudad son muy anchas",
+      "response_clean": "las calles"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 8,
+      "score": 2,
+      "target_clean": "puede que llueva mañana todo el día",
+      "response_clean": "puede mañana de todo día"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 9,
+      "score": 1,
+      "target_clean": "las casas son muy bonitas pero caras",
+      "response_clean": "a las casa es muson bonitas"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 10,
+      "score": 3,
+      "target_clean": "me gustan las películas que acaban bien",
+      "response_clean": "me gusta las películas que bien"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 11,
+      "score": 3,
+      "target_clean": "el chico con el que yo salgo es español",
+      "response_clean": "el chico con es el algo es español"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 12,
+      "score": 2,
+      "target_clean": "después de cenar me fui a dormir tranquilo",
+      "response_clean": "después de fenar mi fui a tranquilo"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 13,
+      "score": 1,
+      "target_clean": "quiero una casa en la que vivan mis animales",
+      "response_clean": "quienen que en el casa muchos animales"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 14,
+      "score": 2,
+      "target_clean": "a nosotros nos fascinan las fiestas grandiosas",
+      "response_clean": "a nosotros fanimos fiestas grandiosas"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 15,
+      "score": 1,
+      "target_clean": "ella sólo bebe cerveza y no come nada",
+      "response_clean": "ella bebidas cerviamos y no comidas"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 16,
+      "score": 0,
+      "target_clean": "me gustaría que el precio de las casas bajara",
+      "response_clean": "me gustaría ser"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 17,
+      "score": 1,
+      "target_clean": "cruza a la derecha y después sigue todo recto",
+      "response_clean": "cruze a la derecha de siguelo"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 18,
+      "score": 3,
+      "target_clean": "ella ha terminado de pintar su apartamento",
+      "response_clean": "ella terminado pintar a sus apartmento"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 19,
+      "score": 0,
+      "target_clean": "me gustaría que empezara a hacer más calor pronto",
+      "response_clean": "me gustaría se"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 20,
+      "score": 3,
+      "target_clean": "el niño al que se le murió el gato está triste",
+      "response_clean": "el niño se murió el gato es muy triste"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 21,
+      "score": 1,
+      "target_clean": "una amiga mía cuida a los niños de mi vecino",
+      "response_clean": "una mía amiga cuidado a sus niños"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 22,
+      "score": 2,
+      "target_clean": "el gato que era negro fue perseguido por el perro",
+      "response_clean": "el gatoel gato quien era el nego de perro"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 23,
+      "score": 1,
+      "target_clean": "antes de poder salir él tiene que limpiar su cuarto",
+      "response_clean": "antes de podai e salir"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 24,
+      "score": 0,
+      "target_clean": "la cantidad de personas que fuman ha disminuido",
+      "response_clean": "a la cantan muy a"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 25,
+      "score": 1,
+      "target_clean": "después de llegar a casa del trabajo tomé la cena",
+      "response_clean": "después de llegar al trabajo"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 26,
+      "score": 1,
+      "target_clean": "el ladrón al que atrapó la policía era famoso",
+      "response_clean": "ladrónade policio que es famoso"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 27,
+      "score": 1,
+      "target_clean": "le pedí a un amigo que me ayudara con la tarea",
+      "response_clean": "que una amigo a su tarea"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 28,
+      "score": 1,
+      "target_clean": "el examen no fue tan difícil como me habían dicho",
+      "response_clean": "el examen no difícil"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 29,
+      "score": 2,
+      "target_clean": "¿serías tan amable de darme el libro que está en la mesa?",
+      "response_clean": "el libro que está en la mesa"
+    },
+    {
+      "participant": "38006-2A",
+      "sentence": 30,
+      "score": 1,
+      "target_clean": "hay mucha gente que no toma nada para el desayuno",
+      "response_clean": "a mucha gente"
+    }
+  ]
+}
